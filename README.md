@@ -18,4 +18,5 @@ The first piece is to manipulate a powerful storage system. This storage engine 
 This abstraction will also allow you to change the type of storage easily without updating all of your codebase.
 
 The console will be a tool to validate this storage engine
+
 ![console](https://github.com/muhammd2refaat/AirBnB_clone/blob/master/image/815046647d23428a14ca.png)
