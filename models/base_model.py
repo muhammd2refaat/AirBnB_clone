@@ -8,13 +8,21 @@ class BaseModel:
     BaseModel class
     """
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         """
         Constructor
         """
         self.id = str(uuid4())
         self.created_at = datetime.now()
         self.updated_at = datetime.now()
+        if kwargs is not None:
+            for key, value in kwargs.items():
+                if key == "created_at" or key == "updated_at":
+                    value = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
+                if key != "__class__":
+                    setattr(self, key, value)
+        # else:
+        #     models.storage.new(self)
 
     def __str__(self):
         """
