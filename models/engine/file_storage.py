@@ -38,4 +38,3 @@ class FileStorage:
             return
         for key, value in json_dict.items():
             self.all()[key] = self.create_object(value["__class__"])(**value)
-
