@@ -10,28 +10,29 @@ class FileStorage:
     __file_path = "file.json"
     __objects = {}
 
-    def all(self, cls=None):
+    def all(self):
         """returns the dictionary __objects"""
         return self.__objects
 
     def new(self, obj):
         """sets in __objects the obj with key <obj class name>.id"""
         key = f"{obj.__class__.__name__}.{obj.id}"
-        self.__objects[key] = obj
+        self.all()[key] = obj
 
     def save(self):
         """serialize objects and save it to file_path"""
-        ser = {}
-        for key, obj in self.__objects.items():
-            ser[key] = obj.to_dict()
-        with open(FileStorage.__file_path, 'w') as fs:
-            json.dump(ser, fs)
+        json_dict = {}
+        for key, value in self.all().items():
+            json_dict[key] = value.to_dict()
+        with open(self.__file_path, "w") as fp:
+            json.dump(json_dict, fp)
 
     def reload(self):
-        if os.path.exists(self.__file_path):
-            with open(self.__file_path, 'r') as f:
-                obj_dict = json.load(f)
-                for key, value in obj_dict.items():
-                    class_name = value["__class__"]
-                    obj = eval(class_name)(**value)
-                    self.__objects[key] = obj
+        try:
+            with open(self.__file_path, "r") as fp:
+                json_dict = json.load(fp)
+        except FileNotFoundError:
+            return
+        for key, value in json_dict.items():
+            self.all()[key] = self.create_object(value["__class__"])(**value)
+

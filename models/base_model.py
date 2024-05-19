@@ -23,7 +23,10 @@ class BaseModel:
                 if key != "__class__":
                     setattr(self, key, value)
         else:
-            models.Storage.new(self)
+            self.id = str(uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
+            models.storage.new(self)
 
 
     def __str__(self):
