@@ -3,7 +3,7 @@ import cmd
 
 
 class HBNBCommand(cmd.Cmd):
-    """HBNB command interpreter."""
+    """HBNB command interprete r."""
 
     prompt = "(hbnb) "
 
