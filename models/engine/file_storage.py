@@ -1,7 +1,11 @@
+
+
 #!/usr/bin/python3
 """ file_storage module """
 import json
-import os
+from models.base_model import BaseModel
+from models.user import User
+
 
 
 class FileStorage:
@@ -10,6 +14,11 @@ class FileStorage:
     __file_path = "file.json"
     __objects = {}
 
+    models = {
+        "BaseModel" : BaseModel,
+        "User" : User,
+    }
+
     def all(self):
         """returns the dictionary __objects"""
         return self.__objects
@@ -17,24 +26,22 @@ class FileStorage:
     def new(self, obj):
         """sets in __objects the obj with key <obj class name>.id"""
         key = f"{obj.__class__.__name__}.{obj.id}"
-        self.all()[key] = obj
+        # print("***" * 10)
+        self.__objects[key] = obj
 
     def save(self):
         """serialize objects and save it to file_path"""
         json_dict = {}
-        # print(self.all())
         for key, value in self.all().items():
             json_dict[key] = value.to_dict()
-        # print("##" * 50)
-        # print(json_dict)
         with open(self.__file_path, "w") as fp:
-            json.dump(json_dict, fp)
+            json.dump(json_dict, fp, indent=4)
 
     def reload(self):
         try:
             with open(self.__file_path, "r") as fp:
                 json_dict = json.load(fp)
+            for key, value in json_dict.items():
+                self.__objects[key]= self.models[value["__class__"]](**value)
         except FileNotFoundError:
             return
-        for key, value in json_dict.items():
-            self.all()[key] = self.create_object(value["__class__"])(**value)
