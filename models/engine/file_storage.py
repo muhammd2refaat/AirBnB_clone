@@ -3,6 +3,7 @@
 #!/usr/bin/python3
 """ file_storage module """
 import json
+from json.decoder import JSONDecodeError
 from models.base_model import BaseModel
 from models.user import User
 
@@ -43,5 +44,5 @@ class FileStorage:
                 json_dict = json.load(fp)
             for key, value in json_dict.items():
                 self.__objects[key]= self.models[value["__class__"]](**value)
-        except FileNotFoundError:
-            return
+        except (FileNotFoundError, JSONDecodeError):
+            pass
