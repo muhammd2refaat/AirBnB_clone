@@ -2,6 +2,7 @@
 
 """This module defines a class to manage file storage for hbnb clone"""
 import json
+from json.decoder import JSONDecodeError
 # from os.path import isfile
 # from models.base_model import BaseModel
 # from models.user import User
@@ -35,13 +36,12 @@ class FileStorage:
 
     def save(self):
         """serializes __objects to the JSON file (path: __file_path)"""
-        json_objects = {}
-
-        for key, value in FileStorage.__objects.items():
-            json_objects[key] = value.to_dict()
-
-        with open(FileStorage.__file_path, 'w') as file:
-            json.dump(json_objects, file)
+        serialized = {
+            key: value.to_dict()
+            for key, value in self.__objects.items()
+        }
+        with open(FileStorage.__file_path, "w") as f:
+            f.write(json.dumps(serialized))
 
     def reload(self):
         """deserializes the JSON file to __objects"""
@@ -53,7 +53,7 @@ class FileStorage:
                 key: eval(value["__class__"])(**value)
                 for key, value in deserialized.items()
             }
-        except FileNotFoundError:
+        except (FileNotFoundError, JSONDecodeError):
             pass
-        except Exception as error:
-            raise error
+        except Exception as e:
+            raise e
