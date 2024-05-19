@@ -1,4 +1,6 @@
+#!/usr/bin/python3
 import cmd
+
 
 class HBNBCommand(cmd.Cmd):
     """HBNB command interpreter."""
@@ -8,7 +10,7 @@ class HBNBCommand(cmd.Cmd):
     def do_quit(self, arg):
         """Quit command to exit the program."""
         return True
-    
+
     def do_EOF(self, arg):
         """EOF signal to exit the program."""
         return True
@@ -20,6 +22,7 @@ class HBNBCommand(cmd.Cmd):
     def default(self, arg):
         """Default behavior for all other commands."""
         cmd.Cmd.default(self, arg)
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
