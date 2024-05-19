@@ -1,12 +1,10 @@
-
-
 #!/usr/bin/python3
+
 """ file_storage module """
 import json
 from json.decoder import JSONDecodeError
 from models.base_model import BaseModel
 from models.user import User
-
 
 
 class FileStorage:
@@ -16,8 +14,8 @@ class FileStorage:
     __objects = {}
 
     models = {
-        "BaseModel" : BaseModel,
-        "User" : User,
+        "BaseModel": BaseModel,
+        "User": User,
     }
 
     def all(self):
@@ -43,6 +41,6 @@ class FileStorage:
             with open(self.__file_path, "r") as fp:
                 json_dict = json.load(fp)
             for key, value in json_dict.items():
-                self.__objects[key]= self.models[value["__class__"]](**value)
+                self.__objects[key] = self.models[value["__class__"]](**value)
         except (FileNotFoundError, JSONDecodeError):
             pass
