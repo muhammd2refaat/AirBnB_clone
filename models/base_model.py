@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 from uuid import uuid4
 from datetime import datetime
+import models
 
 
 class BaseModel:
@@ -21,8 +22,9 @@ class BaseModel:
                     value = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
                 if key != "__class__":
                     setattr(self, key, value)
-        # else:
-        #     models.storage.new(self)
+        else:
+            models.Storage.new(self)
+            
 
     def __str__(self):
         """
