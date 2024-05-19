@@ -24,12 +24,10 @@ class BaseModel:
                     setattr(self, key, value)
         else:
             models.Storage.new(self)
-            
+
 
     def __str__(self):
-        """
-        String representation
-        """
+        """ String representation"""
         return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
 
     def save(self):
@@ -37,6 +35,7 @@ class BaseModel:
         save
         """
         self.updated_at = datetime.now()
+        models.storage.save()
 
     def to_dict(self):
         """
