@@ -1,0 +1,19 @@
+.default-footer{
+    background-color: white;
+    height: 60px;
+    width: 100%;
+    border-top: 1px solid #CCCCCC;
+    bottom: 0;
+    position: fixed;
+}
+.footer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* position: fixed; */
+    /* bottom: 0; */
+    height: 100%;
+}
+.footer-div{
+    text-align: center;
+}
