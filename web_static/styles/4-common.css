@@ -6,7 +6,11 @@ body {
 	font-family: Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
 	justify-content: center;
 }
-/* Div that containing the section */
+/*
+* Div that containing the section
+* It should be 1000px wide
+* Margin: 30px auto 30px auto
+*/
 .container {
 	display: block;
 	max-width: 1000px;
