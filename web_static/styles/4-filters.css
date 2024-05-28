@@ -1,4 +1,7 @@
-/* Section containing the button */
+/* 
+* Filters
+* styles for the section containing the button
+*/
 .filters {
 	background-color: white;
 	height: 70px;
@@ -9,7 +12,9 @@
 	align-items: center;
 	justify-content: right;
 }
-/* search button */
+/* this is the search button
+* customize the button
+*/
 .button-search {
 	font-size: 18px;
 	background-color: #FF5A5F;
